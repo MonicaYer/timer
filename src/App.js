@@ -1,25 +1,41 @@
-import logo from './logo.svg';
+import { Component } from 'react';
 import './App.css';
+import Text from './Components/Text/Text'
+import Card from './ui/Card/Card'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      timer: ''
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      timer: new Date().toLocaleTimeString()
+  })
+  }
+
+  componentDidUpdate() {
+    this.myTimerTimeOut = setTimeout(() => {
+      this.setState({
+        timer: new Date().toLocaleTimeString()
+      })
+    }, 1000)
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.myTimerTimeOut)
+  }
+
+  render() {
+    return (
+      <Card className="container">
+        <Text> {this.state.timer} </Text>
+      </Card>
+    )
+  }
 }
 
-export default App;
+export default App
